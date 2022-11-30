@@ -4,63 +4,63 @@ import java.util.*;
 public class StudentList
 {
 	public static String getlineFromFile() throws  Exception{
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(Constants.STUDENTS_FILE_NAME)));
 		String line = bufferedReader.readLine();
 		return line;
 	}
 	public  static BufferedWriter getFileBufferedWriter() throws Exception{
-		return new BufferedWriter(new FileWriter("students.txt", true));
+		return new BufferedWriter(new FileWriter(Constants.STUDENTS_FILE_NAME, true));
 	}
 
 	public static void main(String[] args)
 	{
 
 		if(args.length != 1){
-			System.err.println("Invalid number of arguments.");
-			System.err.println("Exiting program");
+			System.err.println(Constants.MSG_INVALID_NUMBER_OF_ARGUMENTS);
+			System.err.println(Constants.MSG_EXITING_PROGRAM);
 			System.exit(1);
 		}
 
 //		Check arguments
-		if(args[0].equals("a"))
+		if(args[0].equals(Constants.ARG_LIST_DATA))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
 			String line = getlineFromFile();
-			String students[] = line.split(", ");
+			String students[] = line.split(Constants.WORDS_SPLIT_REGEX);
 			for(String student : students) { System.out.println(student);
 			}
 			}
 			catch (Exception e){}
-			System.out.println("Data Loaded.");
+			System.out.println(Constants.MSG_LOADED_DATA);
 		}
-		else if(args[0].equals("r")) 
+		else if(args[0].equals(Constants.ARG_SHOW_RANDOM_DATA))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
 			String line = getlineFromFile();
-			String students[] = line.split(", ");
+			String students[] = line.split(Constants.WORDS_SPLIT_REGEX);
 			Random random = new Random();
 				int index = random.nextInt();
 					System.out.println(students[index]);
 			}
 			catch (Exception e){}
-			System.out.println("Data Loaded.");			
+			System.out.println(Constants.MSG_LOADED_DATA);
 		}
-		else if(args[0].contains("+"))
+		else if(args[0].contains(Constants.ARG_ADD_DATA))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
 			BufferedWriter bufferedWriter = getFileBufferedWriter();
 			String new_date = args[0].substring(1);
 	        Date date = new Date();
-	        String date_format_pattern  = "dd-mm-yyyy-hh:mm:ss a";
+	        String date_format_pattern  = Constants.DATE_FORMAT_PATTERN;
 	        DateFormat dateFormat = new SimpleDateFormat(date_format_pattern );
 	        String formate_date= dateFormat.format(date);
-			bufferedWriter.write(", "+new_date+"\nList last updated on "+formate_date);
+			bufferedWriter.write(Constants.WORDS_SPLIT_REGEX+new_date+Constants.MSG_DATA_UPDATED+formate_date);
 			bufferedWriter.close();
 			}
 			catch (Exception e)
@@ -68,11 +68,11 @@ public class StudentList
 
 			}
 							
-			System.out.println("Data Loaded.");	
+			System.out.println(Constants.MSG_LOADED_DATA);
 		}
-		else if(args[0].contains("?")) 
+		else if(args[0].contains(Constants.ARG_FIND_DATA))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
 			String line = getlineFromFile();
@@ -83,7 +83,7 @@ public class StudentList
 			{
 				if(students[idx].equals(new_data ))
 				{
-					System.out.println("We found it!");
+					System.out.println(Constants.MSG_DATA_FOUND);
 						done=true;
 				}
 			}
@@ -92,11 +92,11 @@ public class StudentList
 			{
 
 			}
-			System.out.println("Data Loaded.");				
+			System.out.println(Constants.MSG_LOADED_DATA);
 		}
 		else if(args[0].contains("c")) 
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
 			String line = getlineFromFile();
@@ -116,14 +116,14 @@ public class StudentList
 					}
 				}
 			}
-			System.out.println(count +" word(s) found ");
+			System.out.println(count +Constants.MSG_WORDS_FOUND);
 			}
 			catch (Exception e){}
-			System.out.println("Data Loaded.");				
+			System.out.println(Constants.MSG_LOADED_DATA);
 		}
 		else{
-			System.err.println("Invalid arguments.");
-			System.err.println("Exiting program.");
+			System.err.println(Constants.MSG_INVALID_ARGUMENTS);
+			System.err.println(Constants.MSG_EXITING_PROGRAM);
 			System.exit(2);
 		}
 	}
