@@ -6,16 +6,22 @@ public class StudentList
 	public static void main(String[] args)
 	{
 
+		if(args.length != 1){
+			System.err.println("Invalid number of arguments.");
+			System.err.println("Exiting program");
+			System.exit(1);
+		}
+
 //		Check arguments
 		if(args[0].equals("a"))
 		{
 			System.out.println("Loading data ...");			
 			try
 			{
-			BufferedReader s = new BufferedReader(
+			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(
 							new FileInputStream("students.txt"))); 
-			String r = s.readLine();
+			String r = bufferedReader.readLine();
 			String i[] = r.split(", ");
 			for(String j : i) { System.out.println(j);
 			}
@@ -118,6 +124,11 @@ public class StudentList
 			}
 			catch (Exception e){}
 			System.out.println("Data Loaded.");				
+		}
+		else{
+			System.err.println("Invalid arguments.");
+			System.err.println("Exiting program.");
+			System.exit(2);
 		}
 	}
 }
