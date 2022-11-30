@@ -27,8 +27,8 @@ public class StudentList
 			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
-			String line = getlineFromFile();
-			String students[] = line.split(Constants.WORDS_SPLIT_REGEX);
+
+			String students[] = getlineFromFile().split(Constants.WORDS_SPLIT_REGEX);
 			for(String student : students) { System.out.println(student);
 			}
 			}
@@ -40,10 +40,9 @@ public class StudentList
 			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
-			String line = getlineFromFile();
-			String students[] = line.split(Constants.WORDS_SPLIT_REGEX);
-			Random random = new Random();
-				int index = random.nextInt();
+			String students[] = getlineFromFile().split(Constants.WORDS_SPLIT_REGEX);
+
+				int index =  new Random().nextInt();
 					System.out.println(students[index]);
 			}
 			catch (Exception e){}
@@ -56,10 +55,9 @@ public class StudentList
 			{
 			BufferedWriter bufferedWriter = getFileBufferedWriter();
 			String new_date = args[0].substring(1);
-	        Date date = new Date();
-	        String date_format_pattern  = Constants.DATE_FORMAT_PATTERN;
-	        DateFormat dateFormat = new SimpleDateFormat(date_format_pattern );
-	        String formate_date= dateFormat.format(date);
+
+
+	        String formate_date=  new SimpleDateFormat(Constants.DATE_FORMAT_PATTERN ).format( new Date());
 			bufferedWriter.write(Constants.WORDS_SPLIT_REGEX+new_date+Constants.MSG_DATA_UPDATED+formate_date);
 			bufferedWriter.close();
 			}
@@ -75,13 +73,12 @@ public class StudentList
 			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
-			String line = getlineFromFile();
-			String students[] = line.split(",");
+			String students[] = getlineFromFile().split(",");
 			boolean done = false;
-			String new_data  = args[0].substring(1);
+
 			for(int idx = 0; idx<students.length && !done; idx++)
 			{
-				if(students[idx].equals(new_data ))
+				if(students[idx].equals(args[0].substring(1) ))
 				{
 					System.out.println(Constants.MSG_DATA_FOUND);
 						done=true;
@@ -99,8 +96,8 @@ public class StudentList
 			System.out.println(Constants.MSG_LOADING_DATA);
 			try
 			{
-			String line = getlineFromFile();
-			char students[] = line.toCharArray();
+			
+			char students[] = getlineFromFile().toCharArray();
 			boolean in_word = false;
 			int count=0;
 			for(char student:students) {
